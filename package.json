@@ -12,5 +12,10 @@
         "laravel-vite-plugin": "^1.2.0",
         "tailwindcss": "^4.0.0",
         "vite": "^6.2.4"
+    },
+    "dependencies": {
+        "@devcycle/openfeature-web-provider": "^1.12.7",
+        "@openfeature/web-sdk": "^1.7.2",
+        "@sentry/browser": "^10.36.0"
     }
 }
