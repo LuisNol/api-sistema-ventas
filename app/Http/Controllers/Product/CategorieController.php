@@ -27,7 +27,7 @@ class CategorieController extends Controller
                     "id" => $categorie->id,
                     "title" => $categorie->title,
                     "state" => $categorie->state,
-                    "imagen" => env("APP_URL")."storage/".$categorie->imagen,
+                    "imagen" => $categorie->imagen ? Storage::disk('public')->url($categorie->imagen) : null,
                     "created_at" => $categorie->created_at->format("Y-m-d h:i A"),
                 ];
             }),
@@ -50,7 +50,7 @@ class CategorieController extends Controller
         $path = "";
 
         if($request->hasFile("image")){
-            $path = Storage::putFile("categories",$request->file("image"));
+            $path = Storage::disk('public')->putFile("categories",$request->file("image"));
         }
 
         $categorie = Categorie::create([
@@ -64,7 +64,7 @@ class CategorieController extends Controller
                 "id" => $categorie->id,
                 "title" => $categorie->title,
                 "state" => $categorie->state,
-                "imagen" => env("APP_URL")."storage/".$categorie->imagen,
+                "imagen" => $categorie->imagen ? Storage::disk('public')->url($categorie->imagen) : null,
                 "created_at" => $categorie->created_at->format("Y-m-d h:i A"),
             ],
             "code" => 200,
@@ -98,9 +98,9 @@ class CategorieController extends Controller
 
         if($request->hasFile("image")){
             if($categorie->imagen){
-                Storage::delete($categorie->imagen);
+                Storage::disk('public')->delete($categorie->imagen);
             }
-            $path = Storage::putFile("categories",$request->file("image"));
+            $path = Storage::disk('public')->putFile("categories",$request->file("image"));
             $categorie->update([
                 "imagen" => $path
             ]);
@@ -116,7 +116,7 @@ class CategorieController extends Controller
                 "id" => $categorie->id,
                 "title" => $categorie->title,
                 "state" => $categorie->state,
-                "imagen" => env("APP_URL")."storage/".$categorie->imagen,
+                "imagen" => $categorie->imagen ? Storage::disk('public')->url($categorie->imagen) : null,
                 "created_at" => $categorie->created_at->format("Y-m-d h:i A"),
             ],
             "code" => 200,

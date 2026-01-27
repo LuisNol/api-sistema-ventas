@@ -54,7 +54,7 @@ class ProductController extends Controller
         }
 
         if($request->hasFile("image")){
-            $path = Storage::putFile("products",$request->file("image"));
+            $path = Storage::disk('public')->putFile("products",$request->file("image"));
             $request->request->add(["imagen" => $path]);
         }
 
@@ -117,9 +117,9 @@ class ProductController extends Controller
 
         if($request->hasFile("image")){
             if($product->imagen){
-                Storage::delete($product->imagen);
+                Storage::disk('public')->delete($product->imagen);
             }
-            $path = Storage::putFile("products",$request->file("image"));
+            $path = Storage::disk('public')->putFile("products",$request->file("image"));
             $request->request->add(["imagen" => $path]);
         }
 
@@ -138,7 +138,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         if($product->imagen){
-            Storage::delete($product->imagen);
+            Storage::disk('public')->delete($product->imagen);
         }
         $product->delete();
 
