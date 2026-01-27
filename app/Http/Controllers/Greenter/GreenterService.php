@@ -331,8 +331,13 @@ class GreenterService {
         $file_name = "cdrs/".uniqid() . '.' . 'zip';
         Storage::disk('public')->put($file_name, $result->getCdrZip());
         // Obtener la ruta pública del archivo
-        $public_path = Storage::url($file_name);
+        
+        //$public_path = Storage::url($file_name);
+        $public_path = url(Storage::url($file_name));
+      
+        
         $response['cdrZip'] = $public_path;//base64_encode($result->getCdrZip());
+
 
         $cdr = $result->getCdrResponse();
 

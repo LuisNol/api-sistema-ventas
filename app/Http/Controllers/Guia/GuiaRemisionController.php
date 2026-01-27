@@ -174,7 +174,8 @@ class GuiaRemisionController extends Controller
             // Guardar en el disco storage/app/public/xml
             Storage::disk('public')->put('xml/' . $file_name, $formattedXml);
             // Obtener la ruta pública
-            $public_path_xml = Storage::url('xml/' . $file_name);
+           // $public_path_xml = Storage::url('xml/' . $file_name);
+            $public_path_xml = url(Storage::url('xml/' . $file_name));
             $guia_remision->update([
                 "correlativo" => $data['correlativo'],
                 "n_operacion" => $guia_remision->serie."-".$data['correlativo'],
