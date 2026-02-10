@@ -21,7 +21,7 @@
 - 💰 Sistema de ventas y facturación electrónica
 - 👥 Control de usuarios y permisos (RBAC)
 - 📈 Reportes y estadísticas detalladas
-- 🔐 Autenticación segura con Laravel Sanctum
+- 🔐 Autenticación segura con JWT (JSON Web Tokens)
 - 📱 API RESTful documentada
 
 ---
