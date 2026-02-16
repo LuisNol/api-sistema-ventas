@@ -73,8 +73,14 @@ class SaleController extends Controller
         if(!$sale){
             return abort(404);
         }
+        
         $pdf = Pdf::loadView('pdf_sale', compact('sale'));
-        return $pdf->stream('sale_'.$id.'.pdf');
+        
+        return $pdf->stream('sale_'.$id.'.pdf', [
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+            'Pragma' => 'no-cache',
+            'Expires' => '0'
+        ]);
     }
 
     public function search_sale($comprobante){

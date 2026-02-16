@@ -368,9 +368,40 @@
         padding: 5px 0;
         }
 
-        /* .line-items-container tbody tr:first-child td {
-        padding-top: 10px;
-        } */
+        /* Tabla de productos con bordes */
+        .products-table {
+        margin: 15px 0;
+        font-size: 0.875em;
+        border: 1px solid #333;
+        border-collapse: collapse;
+        }
+
+        .products-table th {
+        text-align: left;
+        color: #000;
+        border: 1px solid #333;
+        padding: 8px;
+        font-size: 0.75em;
+        text-transform: uppercase;
+        background-color: #f5f5f5;
+        }
+
+        .products-table th:last-child {
+        text-align: right;
+        }
+
+        .products-table td {
+        padding: 8px;
+        border: 1px solid #333;
+        }
+
+        .products-table .importe-letras-row td {
+        padding: 8px !important;
+        border: 1px solid #333 !important;
+        background-color: #ffffff !important;
+        font-weight: normal !important;
+        text-align: left !important;
+        }
 
         .line-items-container.has-bottom-border tbody tr:last-child td {
         padding-bottom: 25px;
@@ -493,9 +524,9 @@
                         src="{{ public_path('laravest.png') }}"
                     >
                     <br>
-                    <small>https://www.laravest.com/</small>
+                    <small>https://admin-fe.avisonline.store/</small>
                     <br>
-                    <small>echodeveloper960@gmail.com</small>
+                    <small>nolberto.sumaran@gmail.com</small>
                 </td>
             </tr>
         </tbody>
@@ -542,27 +573,32 @@
 
   </table>
 
-  <table class="line-items-container">
+  <table class="products-table">
     <thead>
       <tr>
-        <th class="heading-quantity">Qty</th>
+        <th style="width: 80px;">Código</th>
+        <th style="width: 40px;">Cant</th>
+        <th style="width: 50px;">Unidad</th>
         <th class="heading-description">Descripción</th>
-        <th class="heading-price">Precio Final</th>
-        <th class="heading-price">Subtotal</th>
+        <th class="heading-price">Valor U.</th>
+        <th class="heading-price">Precio U.</th>
+        <th class="heading-price">IGV</th>
+        <th class="heading-price">Descuento</th>
+        <th class="heading-price">SubTotal</th>
       </tr>
     </thead>
     <tbody>
         @foreach ($sale->sale_details as $sale_detail)
             <tr>
-                <td>{{$sale_detail->quantity}}</td>
-                <td>
-                    {{$sale_detail->product->title}}<br>
-                    Categoria: {{$sale_detail->product->categorie->name}}<br>
-                    Descripción: {{$sale_detail->description}}
-                </td>
-                <td class="right"> {{$sale->currency}} {{$sale_detail->price_final}}</td>
-                <td class="right"> {{$sale->currency}} {{$sale_detail->subtotal}}</td>
-                {{-- [11].includes(sale_detail.tip_afe_igv) == 0 --}}
+                <td>{{ $sale_detail->product->sku ?? str_pad($sale_detail->product_id, 8, '0', STR_PAD_LEFT) }}</td>
+                <td style="text-align: center;">{{ $sale_detail->quantity }}</td>
+                <td style="text-align: center;">{{ strtoupper($sale_detail->unidad_medida ?? 'UND') }}</td>
+                <td>{{ $sale_detail->product->title ?? $sale_detail->description }}</td>
+                <td class="right">{{ number_format($sale_detail->price_base ?? 0, 2) }}</td>
+                <td class="right">{{ number_format($sale_detail->price_final ?? 0, 2) }}</td>
+                <td class="right">{{ number_format($sale_detail->igv ?? 0, 2) }}</td>
+                <td class="right">{{ number_format($sale_detail->discount ?? 0, 2) }}</td>
+                <td class="right">{{ number_format($sale_detail->subtotal ?? 0, 2) }}</td>
             </tr>
         @endforeach
         @php
@@ -570,12 +606,32 @@
         @endphp
         @foreach ($sales_anticipos as $sales_anticipo)
             <tr>
-                <td></td>
-                <td>Anticipo de la factura "{{$sales_anticipo["n_operacion"]}}"</td>
-                <td class="right">- {{$sale->currency}} {{$sales_anticipo["subtotal"]}}</td>
-                <td class="right">- {{$sale->currency}} {{$sales_anticipo["total"]}}</td>
+                <td colspan="2"></td>
+                <td colspan="5">Anticipo de la factura "{{$sales_anticipo["n_operacion"]}}"</td>
+                <td class="right">- {{number_format($sales_anticipo["subtotal"] ?? 0, 2)}}</td>
+                <td class="right">- {{number_format($sales_anticipo["total"] ?? 0, 2)}}</td>
             </tr>
         @endforeach
+        
+        @php
+            try {
+                $converter = new \Luecano\NumeroALetras\NumeroALetras();
+                $entero = floor($sale->subtotal ?? 0);
+                $decimales = str_pad(round((($sale->subtotal ?? 0) - $entero) * 100), 2, '0', STR_PAD_LEFT);
+                $texto_entero = $converter->toWords($entero);
+                $total_letras = strtoupper($texto_entero) . ' (' . $decimales . '/100) Soles';
+            } catch (\Exception $e) {
+                $entero = floor($sale->subtotal ?? 0);
+                $decimales = str_pad(round((($sale->subtotal ?? 0) - $entero) * 100), 2, '0', STR_PAD_LEFT);
+                $total_letras = number_format($entero, 0) . ' (' . $decimales . '/100) Soles';
+            }
+        @endphp
+        
+        <tr class="importe-letras-row">
+            <td colspan="9">
+                <strong>IMPORTE EN LETRAS:</strong> {{ $total_letras }}
+            </td>
+        </tr>
     </tbody>
   </table>
 
