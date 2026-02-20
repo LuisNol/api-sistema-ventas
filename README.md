@@ -28,6 +28,51 @@
 
 ## 🚀 Inicio Rápido
 
+### 🐳 Base de datos con Docker (MySQL + phpMyAdmin)
+
+Si quieres levantar solo la base de datos con Docker, usa:
+
+```bash
+docker compose up -d
+```
+
+Servicios disponibles:
+
+- **MySQL**: `localhost:3306`
+- **phpMyAdmin**: `http://localhost:8081`
+
+Credenciales del contenedor MySQL:
+
+- **Base de datos**: `sistema_venta_fe`
+- **Usuario**: `ventas_user`
+- **Password**: `ventas_pass`
+- **Root password**: `root`
+
+El archivo `sistema_venta_fe.sql` se importa automáticamente la primera vez que se crea el volumen.
+
+Configura tu `.env` de Laravel así:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sistema_venta_fe
+DB_USERNAME=ventas_user
+DB_PASSWORD=ventas_pass
+```
+
+Para apagar los contenedores:
+
+```bash
+docker compose down
+```
+
+Si también quieres borrar el volumen de datos:
+
+```bash
+docker compose down -v
+```
+
 ### Requisitos Previos
 
 - PHP >= 8.1
@@ -40,11 +85,13 @@
 Sigue estos pasos para configurar el proyecto en tu entorno local:
 
 #### 1️⃣ Instalar dependencias
+
 ```bash
 composer install
 ```
 
 #### 2️⃣ Configurar variables de entorno
+
 ```bash
 cp .env.example .env
 ```
@@ -52,12 +99,14 @@ cp .env.example .env
 Edita el archivo `.env` con tus credenciales de base de datos.
 
 #### 3️⃣ Generar clave de aplicación
+
 ```bash
 php artisan key:generate
 php artisan storage:link
 ```
 
 #### 4️⃣ Ejecutar migraciones y seeders
+
 ```bash
 # Desarrollo (con datos de prueba)
 php artisan migrate --seed
@@ -67,6 +116,7 @@ php artisan db:seed --class=PermissionsDemoSeeder
 ```
 
 #### 5️⃣ Iniciar servidor de desarrollo
+
 ```bash
 php artisan serve
 ```
@@ -93,10 +143,12 @@ La API estará disponible en `http://localhost:8000`
 </table>
 
 ### 🔑 Credenciales de Acceso
+
 ```yaml
 Email:demo.sum@gmail.com
 Contraseña: 12345678
 ```
+
 </div>
 
 ---
@@ -177,11 +229,11 @@ Contraseña: 12345678
 
 <div align="center">
 
-| Recurso | Descripción |
-|---------|-------------|
-| 📖 [Documentación de la API](docs/API.md) | Endpoints y ejemplos de uso |
+| Recurso                                    | Descripción                 |
+| ------------------------------------------ | --------------------------- |
+| 📖 [Documentación de la API](docs/API.md)  | Endpoints y ejemplos de uso |
 | 🤝 [Guía de Contribución](CONTRIBUTING.md) | Cómo contribuir al proyecto |
-| 📝 [Changelog](CHANGELOG.md) | Historial de versiones |
+| 📝 [Changelog](CHANGELOG.md)               | Historial de versiones      |
 
 </div>
 

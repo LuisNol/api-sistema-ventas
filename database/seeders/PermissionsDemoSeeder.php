@@ -65,6 +65,26 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['guard_name' => 'api','name' => 'delete_conversion']);
 
         Permission::create(['guard_name' => 'api','name' => 'list_kardex']);
+
+        Permission::create(['guard_name' => 'api','name' => 'register_branch_office']);
+        Permission::create(['guard_name' => 'api','name' => 'list_branch_office']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_branch_office']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_branch_office']);
+
+        Permission::create(['guard_name' => 'api','name' => 'register_warehouse']);
+        Permission::create(['guard_name' => 'api','name' => 'list_warehouse']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_warehouse']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_warehouse']);
+
+        Permission::create(['guard_name' => 'api','name' => 'register_supplier']);
+        Permission::create(['guard_name' => 'api','name' => 'list_supplier']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_supplier']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_supplier']);
+
+        Permission::create(['guard_name' => 'api','name' => 'register_unit']);
+        Permission::create(['guard_name' => 'api','name' => 'list_unit']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_unit']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_unit']);
         
 
         Permission::create(['guard_name' => 'api','name' => 'register_guia_remision']);
