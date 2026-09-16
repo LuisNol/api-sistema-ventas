@@ -2,7 +2,8 @@
 
 # 🚀 API Sistema de Ventas
 
-### Sistema completo de ventas con facturación electrónica
+### Sistema completo de ventas con facturación electrónica}
+<a href="https://deepscan.io/dashboard#view=project&tid=30691&pid=32441&bid=1073776"><img src="https://deepscan.io/api/teams/30691/projects/32441/branches/1073776/badge/grade.svg" alt="DeepScan grade"></a>
 
 [![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
