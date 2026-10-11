@@ -35,6 +35,7 @@
             text-align: center;
             line-height: 1.3;
             margin-bottom: 2mm;
+            color: #000;
         }
 
         .company p,
@@ -55,6 +56,11 @@
         .company-name {
             font-size: 12px;
             text-transform: uppercase;
+        }
+
+        .company-ruc {
+            font-weight: 700;
+            color: #000;
         }
 
         .company-trade {
@@ -241,11 +247,14 @@
     $companyEmail = data_get($company, 'email', $defaultCompanyEmail);
 
     $companyAddressParts = array_filter([
-        data_get($company, 'district'),
-        data_get($company, 'provincia'),
         data_get($company, 'region'),
+        data_get($company, 'provincia'),
+        data_get($company, 'distrito') ?: 'Rupa Rupa',
     ]);
     $companyAddress = data_get($company, 'address') ?: $defaultCompanyAddress;
+    if (stripos($companyAddress, 'tingo maria') === false && stripos($companyAddress, 'tingo maría') === false) {
+        $companyAddress .= ' - Tingo María';
+    }
     $companyLocation = $companyAddressParts ? implode(' - ', $companyAddressParts) : $defaultCompanyLocation;
 
     $client = $sale->client;
@@ -337,9 +346,9 @@
     <div class="company">
         <p class="company-trade">{{ $companyTradeName }}</p>
         <p class="company-name">{{ $companyName }}</p>
-        <p>{{ $companyAddress }}</p>
+        <p class="company-ruc">{{ $companyRuc }}</p>
         <p>{{ $companyLocation }}</p>
-        <p>RUC: {{ $companyRuc }}</p>
+        <p>{{ $companyAddress }}</p>
         <p>Contactos al: {{ $companyPhone }} / {{ $companyEmail }}</p>
     </div>
 
