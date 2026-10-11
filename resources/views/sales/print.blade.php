@@ -24,7 +24,7 @@
     <iframe
         id="printFrame"
         src="{{ $pdfUrl }}"
-        onload="setTimeout(function(){ try { this.contentWindow.focus(); this.contentWindow.print(); } catch (e) {} }.bind(this), 800);"
+        onload="try { this.contentWindow.focus(); this.contentWindow.print(); } catch (e) {}"
     ></iframe>
 
     <script>

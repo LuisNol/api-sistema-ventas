@@ -329,17 +329,7 @@
         $clientNumber,
     ]);
 
-    $qrImageBase64 = null;
     $qrPreviewText = base64_encode(sha1($qrPayload, true));
-    try {
-        $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' . rawurlencode($qrPayload);
-        $qrContent = @file_get_contents($qrUrl);
-        if ($qrContent !== false) {
-            $qrImageBase64 = 'data:image/png;base64,' . base64_encode($qrContent);
-        }
-    } catch (\Throwable $th) {
-        $qrImageBase64 = null;
-    }
 @endphp
 
 <div class="sheet">

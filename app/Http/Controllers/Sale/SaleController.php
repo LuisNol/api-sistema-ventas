@@ -9,6 +9,10 @@ use App\Models\Client\Client;
 use App\Models\Product\Product;
 use App\Models\Sale\SaleDetail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\Writer\PngWriter;
 use App\Models\Sale\SalePayment;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -71,11 +75,11 @@ class SaleController extends Controller
 
     public function pdf($id){
         $sale = Sale::with([
-            'client',
-            'user',
-            'user.role',
-            'sale_details.product.categorie',
-            'payments',
+            'client:id,full_name,n_document,phone,region,provincia,distrito,type_document',
+            'user:id,name,surname',
+            'sale_details:id,sale_id,product_id,unidad_medida,quantity,price_final,discount,subtotal,igv,description,icbper,isc',
+            'sale_details.product:id,sku,title',
+            'payments:id,sale_id,method_payment,amount',
         ])->find($id);
 
         if(!$sale){
@@ -83,6 +87,7 @@ class SaleController extends Controller
         }
 
         $company = Company::first();
+        $qrImageBase64 = $this->generateSaleQr($sale, $company);
         $detailsHeight = $sale->sale_details->sum(function ($detail) {
             $description = (string) data_get($detail, 'product.title', $detail->description);
             return 18 + (ceil(strlen($description) / 24) * 5);
@@ -90,7 +95,7 @@ class SaleController extends Controller
         $anticiposHeight = $sale->sales_anticipos ? count(json_decode($sale->sales_anticipos, true) ?: []) * 18 : 0;
         $paperHeight = max(280, 240 + $detailsHeight + $anticiposHeight);
 
-        $pdf = Pdf::loadView('sales.pdf', compact('sale', 'company'))
+        $pdf = Pdf::loadView('sales.pdf', compact('sale', 'company', 'qrImageBase64'))
             ->setPaper([0, 0, 226.77, $paperHeight * 2.83465]);
         
         return $pdf->stream('sale_'.$id.'.pdf', [
@@ -100,15 +105,64 @@ class SaleController extends Controller
         ]);
     }
 
+    private function generateSaleQr(Sale $sale, ?Company $company): ?string
+    {
+        $companyRuc = data_get($company, 'n_document', '20161515648');
+        $discountGlobalGeneral = (float) ($sale->discount_global ?? 0);
+
+        if ($sale->amount_anticipo) {
+            $discountGlobalGeneral += (float) $sale->amount_anticipo;
+        }
+
+        $retencionTotal = match ((int) $sale->retencion_igv) {
+            1 => round((float) $sale->total * 0.03, 2),
+            2 => round((float) $sale->total * 0.04, 2),
+            default => 0,
+        };
+        $percepcionTotal = (int) $sale->retencion_igv === 3
+            ? round((float) $sale->total * 0.04, 2)
+            : 0;
+        $saleDetails = $sale->sale_details ?? collect();
+        $icbperTotal = round((float) $saleDetails->sum('icbper'), 2);
+        $iscTotal = round((float) $saleDetails->sum('isc'), 2);
+        $totalSales = round(
+            ((float) $sale->total + $icbperTotal + $iscTotal + $percepcionTotal)
+            - ($discountGlobalGeneral + (float) $sale->igv_discount_general + $retencionTotal),
+            2
+        );
+        $igvTotal = round((float) $sale->igv - (float) $sale->igv_discount_general, 2);
+        $payload = implode('|', [
+            $companyRuc,
+            str_starts_with((string) $sale->serie, 'F') ? '01' : '03',
+            (string) ($sale->serie ?? ''),
+            (string) ($sale->correlativo ?? $sale->id),
+            number_format($igvTotal, 2, '.', ''),
+            number_format($totalSales, 2, '.', ''),
+            $sale->created_at ? $sale->created_at->format('Y-m-d') : date('Y-m-d'),
+            data_get($sale, 'client.type_document', '0'),
+            data_get($sale, 'client.n_document', 'N/D'),
+        ]);
+
+        try {
+            $result = (new Builder(
+                writer: new PngWriter(),
+                data: $payload,
+                encoding: new Encoding('UTF-8'),
+                errorCorrectionLevel: ErrorCorrectionLevel::High,
+                size: 220,
+                margin: 0,
+            ))->build();
+
+            return $result->getDataUri();
+        } catch (\Throwable $exception) {
+            report($exception);
+            return null;
+        }
+    }
+
     public function print($id)
     {
-        $sale = Sale::with([
-            'client',
-            'user',
-            'user.role',
-            'sale_details.product.categorie',
-            'payments',
-        ])->find($id);
+        $sale = Sale::find($id);
 
         if(!$sale){
             return abort(404);
