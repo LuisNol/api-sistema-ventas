@@ -160,6 +160,16 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'serie' => 'required',
+            'client_id' => 'required',
+            'subtotal' => 'required',
+            'total' => 'required',
+            'sale_details' => 'required|array|min:1',
+            'sale_details.*.product.id' => 'required',
+            'payments' => 'required|array|min:1',
+        ]);
+
         $sale_details = $request->sale_details;
         $sale_payments = $request->payments;
         try {

@@ -29,7 +29,7 @@ services:
       MYSQL_DATABASE: sistema_venta_fe
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - dbdata:/var/lib/mysql
     healthcheck:
