@@ -83,8 +83,15 @@ class SaleController extends Controller
         }
 
         $company = Company::first();
+        $detailsHeight = $sale->sale_details->sum(function ($detail) {
+            $description = (string) data_get($detail, 'product.title', $detail->description);
+            return 18 + (ceil(strlen($description) / 24) * 5);
+        });
+        $anticiposHeight = $sale->sales_anticipos ? count(json_decode($sale->sales_anticipos, true) ?: []) * 18 : 0;
+        $paperHeight = max(280, 240 + $detailsHeight + $anticiposHeight);
 
-        $pdf = Pdf::loadView('sales.pdf', compact('sale', 'company'));
+        $pdf = Pdf::loadView('sales.pdf', compact('sale', 'company'))
+            ->setPaper([0, 0, 226.77, $paperHeight * 2.83465]);
         
         return $pdf->stream('sale_'.$id.'.pdf', [
             'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',

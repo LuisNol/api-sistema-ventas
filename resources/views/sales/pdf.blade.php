@@ -11,276 +11,201 @@
             box-sizing: border-box;
         }
 
+        @page {
+            margin: 0;
+        }
+
         body {
             margin: 0;
             font-family: DejaVu Sans, Arial, sans-serif;
-            font-size: 10.5px;
+            font-size: 9px;
             color: #101010;
             background: #fff;
+            page-break-inside: avoid;
         }
 
         .sheet {
-            margin: 10px;
-            border: none;
-            padding: 10px 12px;
+            width: 74mm;
+            margin: 0 auto;
+            padding: 3mm 0 5mm;
+            page-break-inside: avoid;
         }
 
-        .header {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-bottom: 10px;
-        }
-
-        .header td {
-            vertical-align: middle;
-        }
-
-        .logo-cell {
-            width: 14%;
-            text-align: left;
-        }
-
-        .logo {
-            width: 112px;
-            max-height: 82px;
-            object-fit: contain;
-        }
-
-        .company-cell {
-            width: 50%;
+        .company {
             text-align: center;
-            padding: 0 10px;
+            line-height: 1.3;
+            margin-bottom: 2mm;
+        }
+
+        .company p,
+        .document p,
+        .section p,
+        .note {
+            margin: 0 0 1.5mm;
+        }
+
+        .company-name,
+        .company-trade,
+        .document-number,
+        .section-title,
+        .total-line {
+            font-weight: 700;
         }
 
         .company-name {
-            font-size: 16px;
-            margin: 0;
-            line-height: 1.15;
-            font-weight: 700;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
 
         .company-trade {
-            font-size: 13px;
-            margin: 2px 0 6px;
-            line-height: 1.2;
-            font-weight: 700;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
 
-        .company-line {
-            margin: 0 0 2px;
-            font-size: 10.5px;
-            line-height: 1.35;
-        }
-
-        .doc-cell {
-            width: 36%;
-        }
-
-        .doc-box {
-            border: 2px solid #1a1a1a;
-            border-radius: 22px;
+        .document {
             text-align: center;
-            padding: 14px 10px;
+            padding: 2mm 0;
+            margin-bottom: 1mm;
+            border-top: 0.25mm dashed #4a4a4a;
+            border-bottom: 0.25mm dashed #4a4a4a;
         }
 
-        .doc-ruc {
-            font-size: 16px;
-            font-weight: 700;
-            margin: 0 0 5px;
-            line-height: 1;
-            letter-spacing: 0.2px;
+        .document-ruc {
+            display: none;
         }
 
-        .doc-type {
-            font-size: 11px;
-            margin: 0 0 6px;
-            line-height: 1.2;
+        .document-type {
             text-transform: uppercase;
-        }
-
-        .doc-number {
-            font-size: 14px;
-            font-weight: 700;
-            margin: 0;
-            line-height: 1;
-            letter-spacing: 0.4px;
-        }
-
-        .info-box {
-            border: 2px solid #1a1a1a;
-            border-radius: 20px;
-            padding: 10px 12px;
-            margin-bottom: 8px;
-        }
-
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .info-table td {
-            width: 50%;
-            vertical-align: top;
-            padding: 1px 8px;
-        }
-
-        .field {
-            margin: 0 0 5px;
-            line-height: 1.35;
-        }
-
-        .label {
-            display: inline-block;
-            min-width: 112px;
-            color: #0b6f18;
             font-weight: 700;
         }
 
-        .right .label {
-            min-width: 145px;
+        .document-number {
+            font-size: 10px;
+        }
+
+        .section {
+            padding: 1mm 0;
+            margin-top: 1mm;
+        }
+
+        .section-title {
+            display: none;
+        }
+
+        .field-label {
+            font-weight: 700;
+        }
+
+        .detail {
+            border-top: 0.25mm dashed #4a4a4a;
+            border-bottom: 0.25mm dashed #4a4a4a;
+            padding: 1.5mm 0;
+            margin-top: 1mm;
         }
 
         .detail-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 6px 0;
-        }
-
-        .detail-table th,
-        .detail-table td {
-            border: 1px solid #4a4a4a;
-            padding: 4px 5px;
-            font-size: 10.5px;
+            table-layout: fixed;
+            font-size: 8px;
         }
 
         .detail-table th {
-            text-align: center;
-            font-weight: 700;
-            background: #e9e9e9;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .text-right {
-            text-align: right;
-        }
-
-        .bottom {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 6px;
-        }
-
-        .bottom td {
-            vertical-align: top;
-        }
-
-        .left-notes {
-            width: 61%;
-            padding-right: 12px;
-        }
-
-        .note {
-            margin: 0 0 5px;
-            font-size: 10.5px;
-        }
-
-        .qr-wrap {
-            margin-top: 8px;
-        }
-
-        .qr-table {
-            border-collapse: collapse;
-        }
-
-        .qr-table td {
-            vertical-align: top;
-        }
-
-        .qr-img {
-            width: 96px;
-            height: 96px;
-            border: 1px solid #444;
-        }
-
-        .qr-fallback {
-            width: 96px;
-            height: 96px;
-            border: 1px solid #444;
-            font-size: 9px;
-            text-align: center;
-            padding-top: 40px;
-            color: #555;
-        }
-
-        .qr-code-text {
-            margin-left: 10px;
-            font-size: 10px;
-            color: #333;
-            max-width: 250px;
-            word-break: break-all;
-            line-height: 1.25;
-        }
-
-        .note-link {
-            color: #0c5ed8;
-            font-weight: 700;
-        }
-
-        .right-totals {
-            width: 39%;
-        }
-
-        .totals {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .totals td {
-            padding: 2px 0;
-            font-size: 14px;
-            line-height: 1.2;
-        }
-
-        .totals .label {
-            min-width: auto;
-            color: #0b6f18;
-            font-size: 12px;
-            font-weight: 700;
-            text-align: right;
-            display: block;
-        }
-
-        .totals .value {
-            width: 34%;
-            text-align: right;
-            font-size: 12px;
+            border-bottom: 0.25mm dashed #4a4a4a;
+            padding: 0 0 1.5mm;
+            text-align: left;
             font-weight: 400;
-            padding-left: 8px;
-            white-space: nowrap;
+        }
+
+        .detail-table td {
+            padding: 1.5mm 0 0;
+            vertical-align: top;
+            page-break-inside: avoid;
+        }
+
+        .detail-table .quantity {
+            width: 9%;
+            text-align: center;
+        }
+
+        .detail-table .unit {
+            width: 12%;
+            text-align: center;
+        }
+
+        .detail-table .description {
+            width: 49%;
+            padding-right: 1mm;
+            word-wrap: break-word;
+        }
+
+        .detail-table .unit-price,
+        .detail-table .amount {
+            width: 15%;
+            text-align: right;
+        }
+
+        .item-code {
+            display: none;
         }
 
         .discount {
             color: #ef4444;
         }
 
-        .total-line .label,
-        .total-line .value {
+        .totals {
+            margin-top: 2mm;
+            text-align: right;
+        }
+
+        .totals p {
+            margin: 0 0 0.8mm;
+        }
+
+        .total-line {
+            font-size: 10px;
             font-weight: 700;
         }
 
+        .qr-wrap {
+            text-align: center;
+            margin: 4mm 0;
+        }
+
+        .qr-img,
+        .qr-fallback {
+            display: block;
+            width: 35mm;
+            height: 35mm;
+            margin: 0 auto 2mm;
+            border: 0.25mm solid #444;
+        }
+
+        .qr-fallback {
+            padding-top: 15mm;
+            color: #555;
+        }
+
+        .qr-code-text {
+            font-size: 7px;
+            line-height: 1.2;
+            word-break: break-all;
+        }
+
         .footer {
-            border: 1px solid #4a4a4a;
-            padding: 5px 8px;
-            margin-top: 8px;
-            font-size: 11px;
+            border-top: 0.25mm dashed #4a4a4a;
+            padding-top: 2mm;
+            margin-top: 2mm;
+            font-size: 8px;
+            text-align: center;
+        }
+
+        .footer-note {
+            border-top: 0.25mm dashed #4a4a4a;
+            padding-top: 2mm;
+            margin-top: 2mm;
+            font-size: 8px;
+            text-align: center;
         }
 
         .muted {
@@ -409,159 +334,94 @@
 @endphp
 
 <div class="sheet">
-    <table class="header">
-        <tr>
-            <td class="logo-cell">
-                @if (file_exists($logoPath))
-                    <img class="logo" src="{{ $logoPath }}" alt="Logo">
-                @endif
-            </td>
-            <td class="company-cell">
-                <p class="company-trade">{{ $companyTradeName }}</p>
-                <p class="company-name">{{ $companyName }}</p>
-                <p class="company-line">{{ $companyAddress }}</p>
-                <p class="company-line">{{ $companyLocation }}</p>
-                <p class="company-line">RUC: {{ $companyRuc }}</p>
-                <p class="company-line">Contactos al: {{ $companyPhone }} / {{ $companyEmail }}</p>
-            </td>
-            <td class="doc-cell">
-                <div class="doc-box">
-                    <p class="doc-ruc">{{ $companyRuc }}</p>
-                    <p class="doc-type">{{ $documentType }}</p>
-                    <p class="doc-number">N° {{ $documentNumber }}</p>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <div class="info-box">
-        <table class="info-table">
-            <tr>
-                <td>
-                    <p class="field"><span class="label">Cliente</span>: {{ $clientName }}</p>
-                    <p class="field"><span class="label">RUC / DNI</span>: {{ $clientNumber }}</p>
-                    <p class="field"><span class="label">Telefono</span>: {{ $clientPhone }}</p>
-                    <p class="field"><span class="label">Direccion</span>: {{ $clientAddress }}</p>
-                    <p class="field"><span class="label">Usuario</span>: {{ $userName }}</p>
-                    <p class="field"><span class="label">Observacion</span>: {{ $sale->description ?: 'N/D' }}</p>
-                </td>
-                <td class="right">
-                    <p class="field"><span class="label">Fecha de Emision</span>: {{ $issueDate }}</p>
-                    <p class="field"><span class="label">Fecha de Vencimiento</span>: {{ $dueDate }}</p>
-                    <p class="field"><span class="label">Guia Remision Rem.</span>: N/D</p>
-                    <p class="field"><span class="label">Guia Remision Trans.</span>: N/D</p>
-                    <p class="field"><span class="label">Condicion de Pago</span>: {{ $paymentCondition }}</p>
-                    <p class="field"><span class="label">Medio de Pago</span>: {{ $paymentMethod }}{{ $paymentAmount ? ' ' . $currency . ': ' . number_format((float) $paymentAmount, 2) : '' }}</p>
-                </td>
-            </tr>
-        </table>
+    <div class="company">
+        <p class="company-trade">{{ $companyTradeName }}</p>
+        <p class="company-name">{{ $companyName }}</p>
+        <p>{{ $companyAddress }}</p>
+        <p>{{ $companyLocation }}</p>
+        <p>RUC: {{ $companyRuc }}</p>
+        <p>Contactos al: {{ $companyPhone }} / {{ $companyEmail }}</p>
     </div>
 
-    <table class="detail-table">
-        <thead>
-            <tr>
-                <th style="width: 12%;">Codigo</th>
-                <th style="width: 7%;">Cant</th>
-                <th style="width: 9%;">Unidad</th>
-                <th>Descripcion</th>
-                <th style="width: 9%;">Valor U.</th>
-                <th style="width: 9%;">Precio U.</th>
-                <th style="width: 7%;">IGV</th>
-                <th style="width: 8%;">Descuento</th>
-                <th style="width: 10%;">SubTotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($saleDetails as $saleDetail)
-                <tr>
-                    <td class="text-center">{{ data_get($saleDetail, 'product.sku', str_pad((string) $saleDetail->product_id, 8, '0', STR_PAD_LEFT)) }}</td>
-                    <td class="text-center">{{ number_format((float) $saleDetail->quantity, 0, '.', '') }}</td>
-                    <td class="text-center">{{ strtoupper($saleDetail->unidad_medida ?: 'UND') }}</td>
-                    <td>{{ data_get($saleDetail, 'product.title', $saleDetail->description) }}</td>
-                    <td class="text-right">{{ number_format((float) ($saleDetail->price_base ?? 0), 2) }}</td>
-                    <td class="text-right">{{ number_format((float) ($saleDetail->price_final ?? 0), 2) }}</td>
-                    <td class="text-right">{{ number_format((float) ($saleDetail->igv ?? 0), 2) }}</td>
-                    <td class="text-right">{{ number_format((float) ($saleDetail->discount ?? 0), 2) }}</td>
-                    <td class="text-right">{{ number_format((float) ($saleDetail->subtotal ?? 0), 2) }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="9" class="text-center muted">No se encontraron detalles para este comprobante.</td>
-                </tr>
-            @endforelse
+    <div class="document">
+        <p class="document-ruc">{{ $companyRuc }}</p>
+        <p class="document-type">{{ $documentType }}: {{ $documentNumber }}</p>
+    </div>
 
-            @foreach ($salesAnticipos as $salesAnticipo)
-                <tr>
-                    <td class="text-center">ANT</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">UND</td>
-                    <td>Anticipo de la factura {{ data_get($salesAnticipo, 'n_operacion') }}</td>
-                    <td class="text-right">0.00</td>
-                    <td class="text-right">0.00</td>
-                    <td class="text-right">0.00</td>
-                    <td class="text-right">0.00</td>
-                    <td class="text-right">-{{ number_format((float) data_get($salesAnticipo, 'total', 0), 2) }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="section">
+        <p>Cliente: {{ $clientName }}</p>
+        <p>Número Doc: {{ $clientNumber }}</p>
+        <p>Fecha Em.: {{ $issueDate }} &nbsp; Condición: {{ $paymentCondition }}</p>
+        <p>Vendedor: {{ $userName }}</p>
+        <p>Medio de Pago: {{ $paymentMethod }}{{ $paymentAmount ? ' ' . $currency . ': ' . number_format((float) $paymentAmount, 2) : '' }}</p>
+    </div>
 
-    <table class="bottom">
-        <tr>
-            <td class="left-notes">
-                <p class="note"><strong>IMPORTE EN LETRAS:</strong> {{ $totalInLetters }}</p>
-                <p class="note">Representacion impresa de la {{ $documentType }}</p>
-                <p class="note">Descargue XML desde: <span class="note-link">https://xml.virtualfactperu.com</span></p>
-                <div class="qr-wrap">
-                    <table class="qr-table">
+    <div class="section">
+        <div class="detail">
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th class="quantity">Cant</th>
+                        <th class="unit">U.M</th>
+                        <th class="description">Descripción</th>
+                        <th class="unit-price">P.U</th>
+                        <th class="amount">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($saleDetails as $saleDetail)
                         <tr>
-                            <td>
-                                @if ($qrImageBase64)
-                                    <img class="qr-img" src="{{ $qrImageBase64 }}" alt="QR Comprobante">
-                                @else
-                                    <div class="qr-fallback">QR</div>
-                                @endif
+                            <td class="quantity">{{ number_format((float) $saleDetail->quantity, 0, '.', '') }}</td>
+                            <td class="unit">{{ strtoupper($saleDetail->unidad_medida ?: 'UND') }}</td>
+                            <td class="description">
+                                <span class="item-code">{{ data_get($saleDetail, 'product.sku', str_pad((string) $saleDetail->product_id, 8, '0', STR_PAD_LEFT)) }}</span>
+                                {{ data_get($saleDetail, 'product.title', $saleDetail->description) }}
                             </td>
-                            <td>
-                                <div class="qr-code-text">{{ $qrPreviewText }}</div>
-                            </td>
+                            <td class="unit-price">{{ number_format((float) ($saleDetail->price_final ?? 0), 2) }}</td>
+                            <td class="amount">{{ number_format((float) ($saleDetail->subtotal ?? 0), 2) }}</td>
                         </tr>
-                    </table>
-                </div>
-                <p class="note">{{ $sale->description ?: '' }}</p>
-            </td>
-            <td class="right-totals">
-                <table class="totals">
-                    <tr>
-                        <td><span class="label">Sub Total {{ $currency }}</span></td>
-                        <td class="value">{{ number_format($subTotalSale, 2) }}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="label">Descuento {{ $currency }}</span></td>
-                        <td class="value discount">-{{ number_format((float) ($sale->discount ?? 0) + $discountGlobalGeneral, 2) }}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="label">Exoneradas {{ $currency }}</span></td>
-                        <td class="value">0.00</td>
-                    </tr>
-                    <tr>
-                        <td><span class="label">Gravadas {{ $currency }}</span></td>
-                        <td class="value">{{ number_format($subTotalSale, 2) }}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="label">IGV {{ $currency }}</span></td>
-                        <td class="value">{{ number_format($igvTotal, 2) }}</td>
-                    </tr>
-                    <tr class="total-line">
-                        <td><span class="label">Total a Pagar {{ $currency }}</span></td>
-                        <td class="value">{{ number_format($totalSales, 2) }}</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="muted">No se encontraron detalles.</td>
+                        </tr>
+                    @endforelse
+
+                    @foreach ($salesAnticipos as $salesAnticipo)
+                        <tr>
+                            <td class="quantity">1</td>
+                            <td class="unit">UND</td>
+                            <td class="description">Anticipo de la factura {{ data_get($salesAnticipo, 'n_operacion') }}</td>
+                            <td class="unit-price">0.00</td>
+                            <td class="amount">-{{ number_format((float) data_get($salesAnticipo, 'total', 0), 2) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="totals">
+        <p>Total Items: {{ $saleDetails->count() + count($salesAnticipos) }} <span style="margin-left: 18mm;">Subtotal {{ $currency }} &nbsp; {{ number_format($subTotalSale, 2) }}</span></p>
+        <p>Op. Exonerada {{ $currency }} &nbsp; {{ number_format($subTotalSale, 2) }}</p>
+        <p>IGV {{ $currency }} &nbsp; {{ number_format($igvTotal, 2) }}</p>
+        <p class="total-line">Total a Pagar {{ $currency }} &nbsp; {{ number_format($totalSales, 2) }}</p>
+    </div>
+
+    <p class="note">Son: {{ $totalInLetters }}</p>
+    <p class="note">Representación impresa de la {{ $documentType }}.</p>
+    <p class="note">Descargue XML y PDF desde: https://xml.virtualfactperu.com</p>
+
+    <div class="qr-wrap">
+        @if ($qrImageBase64)
+            <img class="qr-img" src="{{ $qrImageBase64 }}" alt="QR Comprobante">
+        @else
+            <div class="qr-fallback">QR</div>
+        @endif
+        <div class="qr-code-text">{{ $qrPreviewText }}</div>
+    </div>
 
     <div class="footer">BIENES TRANSFERIDOS EN LA AMAZONIA PARA SER CONSUMIDO EN LA MISMA.</div>
+    <div class="footer-note">No se aceptan devoluciones. Cambio de mercadería max 24 hrs.</div>
 </div>
 </body>
 </html>
